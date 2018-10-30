@@ -3,6 +3,9 @@ sudo: required
 os:
   - linux
 
+env:
+  - DB=redis
+
 jdk:
   - oraclejdk8
 
