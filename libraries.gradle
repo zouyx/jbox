@@ -1,0 +1,34 @@
+ext {
+    springVersion = '4.3.13.RELEASE'
+
+    fastjsonVersion = '1.2.1'
+    commonsLangVersion = '3.3.2'
+    hamcrestVersion = '1.3'
+
+    //redis
+    jedisVersion = '2.9.0'
+    //junit
+    junitVersion = '4.12'
+    //slf4j
+    slf4jVersion = '1.7.25'
+
+    libraries = [
+            // spring boot
+            springCore: "org.springframework:spring-core:${springVersion}",
+            springTest: "org.springframework:spring-test:${springVersion}",
+            springBeans: "org.springframework:spring-beans:${springVersion}",
+            springContext: "org.springframework:spring-context:${springVersion}",
+
+            //lombok
+            fastjson:       "com.alibaba:fastjson:${fastjsonVersion}",
+            commonsLang:       "org.apache.commons:commons-lang3:${commonsLangVersion}",
+            hamcrestAll:       "org.hamcrest:hamcrest-all:${hamcrestVersion}",
+
+            //jedis
+            jedis:"redis.clients:jedis:${jedisVersion}",
+            //junit
+            junit:"junit:junit:${junitVersion}",
+            //slf4j
+            slf4j:"org.slf4j:slf4j-api:${slf4jVersion}",
+    ]
+}

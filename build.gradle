@@ -1,0 +1,54 @@
+apply from:"./libraries.gradle"
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+sourceCompatibility=1.8
+targetCompatibility=1.8
+sourceSets {
+	main {
+		java {
+			srcDir 'src/main/java' // 指定源码目录
+		}
+		resources {
+			srcDirs = ["src/main/resources"]
+		}
+	}
+	test {
+		java {
+			srcDir 'src/test/java' // 指定源码目录
+		}
+		resources {
+			srcDir 'src/test/resources' //资源目录
+		}
+	}
+}
+
+repositories {
+	maven { url mavenCentralRepository }
+}
+
+idea {
+	project {
+		languageLevel = '1.8'
+	}
+}
+
+apply from: "$rootDir/gradle/mavenDeployment.gradle"
+
+dependencies {
+	compile(libraries.springCore)
+	compile(libraries.springTest)
+	compile(libraries.springBeans)
+	compile(libraries.springContext)
+	compile(libraries.fastjson)
+	compile(libraries.commonsLang)
+	compile(libraries.hamcrestAll)
+
+	compile(libraries.jedis)
+	compile(libraries.slf4j)
+
+	testCompile(libraries.springTest)
+	testCompile(libraries.junit)
+}
