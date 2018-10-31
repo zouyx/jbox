@@ -1,4 +1,4 @@
-# jbox - 一些java常用方法集合，可便于开发
+# jbox - java构建微服务常用方法集合
 
 [![Build Status](https://www.travis-ci.org/tevid/jbox.svg?branch=master)](https://www.travis-ci.org/tevid/jbox)
 [![codebeat badge](https://codebeat.co/badges/304c9a4e-b815-495e-aebf-4a12d5e66c80)](https://codebeat.co/projects/github-com-tevid-jbox-master)
