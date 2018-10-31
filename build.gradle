@@ -45,6 +45,7 @@ dependencies {
 	compile(libraries.fastjson)
 	compile(libraries.commonsLang)
 	compile(libraries.hamcrestAll)
+	compile(libraries.guava)
 
 	compile(libraries.jedis)
 	compile(libraries.slf4j)
