@@ -6,6 +6,7 @@ ext {
     hamcrestVersion = '1.3'
     guavaVersion = '22.0'
     httpclientVersion = '3.1'
+    jacksonDataBindVersion = '2.8.10'
 
     //redis
     jedisVersion = '2.9.0'
@@ -27,6 +28,7 @@ ext {
             commonsLang:       "org.apache.commons:commons-lang3:${commonsLangVersion}",
             hamcrestAll:       "org.hamcrest:hamcrest-all:${hamcrestVersion}",
             httpclient             : "commons-httpclient:commons-httpclient:${httpclientVersion}",
+            jacksonDataBind             : "com.fasterxml.jackson.core:jackson-databind:${jacksonDataBindVersion}",
 
             //jedis
             jedis:"redis.clients:jedis:${jedisVersion}",
