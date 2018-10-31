@@ -5,6 +5,7 @@ ext {
     commonsLangVersion = '3.3.2'
     hamcrestVersion = '1.3'
     guavaVersion = '22.0'
+    httpclientVersion = '3.1'
 
     //redis
     jedisVersion = '2.9.0'
@@ -25,6 +26,7 @@ ext {
             guava                  : "com.google.guava:guava:${guavaVersion}",
             commonsLang:       "org.apache.commons:commons-lang3:${commonsLangVersion}",
             hamcrestAll:       "org.hamcrest:hamcrest-all:${hamcrestVersion}",
+            httpclient             : "commons-httpclient:commons-httpclient:${httpclientVersion}",
 
             //jedis
             jedis:"redis.clients:jedis:${jedisVersion}",

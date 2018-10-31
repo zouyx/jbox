@@ -1,6 +1,8 @@
-package com.tevid.jbox.exception;
+package com.tevid.jbox.http;
 
-public class HttpBizException extends BizException{
+import com.tevid.jbox.exception.BizException;
+
+public class HttpBizException extends BizException {
 
     public HttpBizException(int status) {
         super(status);
