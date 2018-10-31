@@ -1,10 +1,11 @@
 language: java
+services:
+  - redis-server
+
 sudo: required
+
 os:
   - linux
-
-env:
-  - DB=redis
 
 jdk:
   - oraclejdk8
