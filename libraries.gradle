@@ -8,6 +8,9 @@ ext {
     httpclientVersion = '3.1'
     jacksonDataBindVersion = '2.8.10'
 
+    //bintray
+    bintrayVersion='0.8.1'
+
     //redis
     jedisVersion = '2.9.0'
     //junit
@@ -29,6 +32,8 @@ ext {
             hamcrestAll:       "org.hamcrest:hamcrest-all:${hamcrestVersion}",
             httpclient             : "commons-httpclient:commons-httpclient:${httpclientVersion}",
             jacksonDataBind             : "com.fasterxml.jackson.core:jackson-databind:${jacksonDataBindVersion}",
+            //bintray
+            bintray: "com.novoda:bintray-release:${bintrayVersion}",
 
             //jedis
             jedis:"redis.clients:jedis:${jedisVersion}",
