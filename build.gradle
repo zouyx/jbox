@@ -35,7 +35,7 @@ idea {
 	}
 }
 
-//apply from: "$rootDir/gradle/mavenDeployment.gradle"
+apply from: "$rootDir/gradle/mavenDeployment.gradle"
 
 dependencies {
 	compile(libraries.springCore)
