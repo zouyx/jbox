@@ -12,8 +12,22 @@
 
 ### 下载依赖包
 
-``` shell
+#### 1.增加仓库
+``` gradle
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+	}
+}
 ```
+#### 2.增加依赖
+```gralde
+dependencies {
+    compile 'com.github.tevid:jbox:master'
+}
+```
+
 
 *PS*: 最好使用 jdk 1.8+
 
