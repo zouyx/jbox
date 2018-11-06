@@ -24,7 +24,7 @@ allprojects {
 #### 2.增加依赖
 ```gralde
 dependencies {
-    compile 'com.github.tevid:jbox:master'
+    compile 'com.github.tevid:jbox:0.0.1'
 }
 ```
 
