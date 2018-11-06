@@ -6,6 +6,10 @@ buildscript {
 
 plugins {
     id "com.jfrog.bintray" version "1.7"
+    id 'net.saliman.cobertura' version '2.3.1'
+    id 'com.github.kt3k.coveralls' version '2.8.2'
+
+    cobertura.coverageFormats = ['html', 'xml'] // coveralls plugin depends on xml format report
 }
 
 apply from: "./libraries.gradle"
@@ -121,6 +125,7 @@ dependencies {
     compile(libraries.guava)
     compile(libraries.httpclient)
     compile(libraries.jacksonDataBind)
+
 
     compile(libraries.jedis)
     compile(libraries.slf4j)
