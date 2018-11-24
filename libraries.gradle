@@ -1,5 +1,7 @@
 ext {
     springVersion = '4.3.13.RELEASE'
+    //thrift
+    thriftVersion = '0.11.0'
 
     fastjsonVersion = '1.2.1'
     commonsLangVersion = '3.3.2'
@@ -24,6 +26,9 @@ ext {
             springTest: "org.springframework:spring-test:${springVersion}",
             springBeans: "org.springframework:spring-beans:${springVersion}",
             springContext: "org.springframework:spring-context:${springVersion}",
+
+            //thrift
+            thrift  : "org.apache.thrift:libthrift:${thriftVersion}",
 
             //lombok
             fastjson:       "com.alibaba:fastjson:${fastjsonVersion}",

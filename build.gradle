@@ -125,6 +125,7 @@ dependencies {
     compile(libraries.guava)
     compile(libraries.httpclient)
     compile(libraries.jacksonDataBind)
+    compile(libraries.thrift)
 
 
     compile(libraries.jedis)
