@@ -18,7 +18,6 @@ import java.util.List;
 
 /**
  * 
- * Copyright (c) 2018,www.vip.com All rights reserved.
  *
  * <p>
  * Http工具类
