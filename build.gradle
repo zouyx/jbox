@@ -1,24 +1,23 @@
 buildscript {
+    apply from:"./libraries.gradle"
+
     repositories {
-        jcenter()
+        maven { url mavenCentralRepository }
     }
 }
 
 plugins {
-    id "com.jfrog.bintray" version "1.7"
     id "net.saliman.cobertura" version "2.3.1"
     id "com.github.kt3k.coveralls" version "2.8.2"
 }
 
 cobertura.coverageFormats = ['html', 'xml'] // coveralls plugin depends on xml format report
 
-apply from: "./libraries.gradle"
+apply from:"./libraries.gradle"
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'com.jfrog.bintray'
-apply plugin: 'maven-publish'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -41,72 +40,9 @@ sourceSets {
     }
 }
 
-allprojects {
-    repositories { jcenter() }
-    tasks.withType(Javadoc) {
-        options { encoding "UTF-8" charSet 'UTF-8' links "http://docs.oracle.com/javase/7/docs/api" }
-    }
+repositories {
+    maven { url mavenCentralRepository }
 }
-
-
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-tasks.withType(Javadoc) {
-    options.addStringOption('Xdoclint:none', '-quiet')
-    options.addStringOption('encoding', 'UTF-8')
-    options.addStringOption('charSet', 'UTF-8')
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
-}
-
-
-publishing {
-    publications {
-        MyPublication(MavenPublication) {
-            from components.java
-            artifact sourcesJar
-            artifact javadocJar
-            version version
-        }
-    }
-}
-
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_API_KEY')
-//    dryRun = false
-    publish = true
-//    override = true
-    publications = ['MyPublication']
-    pkg {
-        repo = 'jbox'
-        name = 'jbox'
-//        userOrg = 'jbox'
-        licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/tevid/jbox.git'
-        websiteUrl = 'https://github.com/tevid/jbox'
-        issueTrackerUrl = 'https://github.com/tevid/jbox/issues'
-        labels = ['java', 'micro-service']
-        version {
-            name = '0.0.1-FINAL'
-            desc = 'Java set up common methods of micro service '
-            released  = new Date()
-            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
-        }
-    }
-}
-
 
 idea {
     project {
@@ -125,12 +61,10 @@ dependencies {
     compile(libraries.guava)
     compile(libraries.httpclient)
     compile(libraries.jacksonDataBind)
-    compile(libraries.thrift)
 
 
     compile(libraries.jedis)
     compile(libraries.slf4j)
-    compile(libraries.bintray)
 
     testCompile(libraries.springTest)
     testCompile(libraries.junit)
