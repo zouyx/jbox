@@ -19,6 +19,11 @@ ext {
     junitVersion = '4.12'
     //slf4j
     slf4jVersion = '1.7.25'
+    //nsq
+    nsqVersion = '0.9.4'
+
+    //lombok
+    lombokVersion = '1.14.4'
 
     libraries = [
             // spring boot
@@ -33,6 +38,7 @@ ext {
             //lombok
             fastjson:       "com.alibaba:fastjson:${fastjsonVersion}",
             guava                  : "com.google.guava:guava:${guavaVersion}",
+            lombok                 : "org.projectlombok:lombok:${lombokVersion}",
             commonsLang:       "org.apache.commons:commons-lang3:${commonsLangVersion}",
             hamcrestAll:       "org.hamcrest:hamcrest-all:${hamcrestVersion}",
             httpclient             : "commons-httpclient:commons-httpclient:${httpclientVersion}",
@@ -46,5 +52,7 @@ ext {
             junit:"junit:junit:${junitVersion}",
             //slf4j
             slf4j:"org.slf4j:slf4j-api:${slf4jVersion}",
+            //nsq
+            nsq:"com.sproutsocial:nsq-j:${nsqVersion}",
     ]
 }
