@@ -1,24 +1,49 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-}
-
 plugins {
     id "com.jfrog.bintray" version "1.7"
-    id "net.saliman.cobertura" version "2.3.1"
+//    id "net.saliman.cobertura" version "2.3.1"
     id "com.github.kt3k.coveralls" version "2.8.2"
 }
 
-cobertura.coverageFormats = ['html', 'xml'] // coveralls plugin depends on xml format report
+//cobertura.coverageFormats = ['html', 'xml'] // coveralls plugin depends on xml format report
 
 apply from: "./libraries.gradle"
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'com.jfrog.bintray'
-apply plugin: 'maven-publish'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+repositories {
+    mavenCentral()
+}
+
+signing {
+    required { gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+allprojects {
+    tasks.withType(Javadoc) {
+        options { encoding "UTF-8" charSet 'UTF-8' links "http://docs.oracle.com/javase/7/docs/api" }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
+artifacts {
+    archives jar
+    archives sourcesJar
+    archives javadocJar
+}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -41,69 +66,47 @@ sourceSets {
     }
 }
 
-allprojects {
-    repositories { jcenter() }
-    tasks.withType(Javadoc) {
-        options { encoding "UTF-8" charSet 'UTF-8' links "http://docs.oracle.com/javase/7/docs/api" }
-    }
-}
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { deployment -> signing.signPom(deployment) }
 
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
+                authentication(userName: sonatypeUsername, password: sonatypePassword)
+            }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
+            pom.project {
+                name project.name
+                packaging 'jar'
+                description 'java构建微服务常用方法集合'
+                url 'https://github.com/tevid/jbox'
 
-tasks.withType(Javadoc) {
-    options.addStringOption('Xdoclint:none', '-quiet')
-    options.addStringOption('encoding', 'UTF-8')
-    options.addStringOption('charSet', 'UTF-8')
-}
+                scm {
+                    url 'https://github.com/tevid/jbox'
+                    connection 'https://github.com/tevid/jbox.git'
+                    developerConnection 'git@github.com:tevid/jbox.git'
+                }
 
-artifacts {
-    archives sourcesJar
-    archives javadocJar
-}
+                licenses {
+                    license {
+                        name 'Apache-2.0 Licence'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0'
+                        distribution 'repo'
+                    }
+                }
 
-
-publishing {
-    publications {
-        MyPublication(MavenPublication) {
-            from components.java
-            artifact sourcesJar
-            artifact javadocJar
-            version version
-        }
-    }
-}
-
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_API_KEY')
-//    dryRun = false
-    publish = true
-//    override = true
-    publications = ['MyPublication']
-    pkg {
-        repo = 'jbox'
-        name = 'jbox-utils'
-//        userOrg = 'jbox'
-        group='com.tevid'
-        licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/tevid/jbox.git'
-        websiteUrl = 'https://github.com/tevid/jbox'
-        issueTrackerUrl = 'https://github.com/tevid/jbox/issues'
-        labels = ['java', 'micro-service']
-        version {
-            name = '0.0.3'
-            desc = 'Java set up common methods of micro service '
-            released  = new Date()
-            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
+                developers {
+                    developer {
+                        id 'joke59139'
+                        name 'joezou'
+                        email 'yixian.zou@gmail.com'
+                    }
+                }
+            }
         }
     }
 }
@@ -132,7 +135,6 @@ dependencies {
 
     compile(libraries.jedis)
     compile(libraries.slf4j)
-    compile(libraries.bintray)
 
     testCompile(libraries.springTest)
     testCompile(libraries.junit)

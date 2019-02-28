@@ -9,12 +9,12 @@
 
     <context:property-placeholder location="classpath:application.properties"/><!-- 加载配置文件 -->
 
-    <bean id="shardingRedisClient" class="com.tevid.jbox.cache.redis.RedisShardedClientFactory">
+    <bean id="shardingRedisClient" class="com.github.tevid.jbox.cache.redis.RedisShardedClientFactory">
         <property name="server" value="${redis.server}"/>
         <property name="password" value="${redis.password}"/>
     </bean>
 
-    <bean id="nsqService" class="com.tevid.jbox.mq.nsq.NsqService">
+    <bean id="nsqService" class="com.github.tevid.jbox.mq.nsq.NsqService">
         <property name="nsqd" value="${nsqd.server}"/>
         <property name="nsqlookupd" value="${nsqd.nsqlookupd}"/>
     </bean>
