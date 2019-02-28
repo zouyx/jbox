@@ -14,4 +14,8 @@
         <property name="password" value="${redis.password}"/>
     </bean>
 
+    <bean id="nsqService" class="com.tevid.jbox.mq.nsq.NsqService">
+        <property name="nsqd" value="${nsqd.server}"/>
+    </bean>
+
 </beans>

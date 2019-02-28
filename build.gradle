@@ -127,7 +127,8 @@ dependencies {
     compile(libraries.httpclient)
     compile(libraries.jacksonDataBind)
     compile(libraries.thrift)
-
+    compile(libraries.nsq)
+    compile(libraries.lombok)
 
     compile(libraries.jedis)
     compile(libraries.slf4j)
