@@ -20,15 +20,11 @@ import java.util.Map;
 public class NsqService implements InitializingBean, ApplicationContextAware {
     private Logger logger = LoggerFactory.getLogger(getClass());
     private ApplicationContext applicationContext;
-    @Getter
     private Publisher publisher;
 
-    @Setter
     private String nsqd;
-    @Setter
     private String failoverNsqd;
     //使用,或者;隔开
-    @Setter
     private String nsqlookupd;
 
     @Override
@@ -73,4 +69,19 @@ public class NsqService implements InitializingBean, ApplicationContextAware {
         this.applicationContext = applicationContext;
     }
 
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setNsqd(String nsqd) {
+        this.nsqd = nsqd;
+    }
+
+    public void setFailoverNsqd(String failoverNsqd) {
+        this.failoverNsqd = failoverNsqd;
+    }
+
+    public void setNsqlookupd(String nsqlookupd) {
+        this.nsqlookupd = nsqlookupd;
+    }
 }
