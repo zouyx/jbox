@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static org.hamcrest.JMock1Matchers.equalTo;
+import static org.junit.Assert.assertThat;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:applicationContext.xml"})
 public class ShardingRedisClientTest {
@@ -15,9 +18,9 @@ public class ShardingRedisClientTest {
 
     @Test
     public void testRedis(){
-//        String abc = shardingRedisClient.set("abc", "123");
-//        System.out.println(abc);
-//        assertThat(abc,equalTo("OK"));
+        String abc = shardingRedisClient.set("abc", "123");
+        System.out.println(abc);
+        assertThat(abc,equalTo("OK"));
 
     }
 }
