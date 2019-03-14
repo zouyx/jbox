@@ -10,13 +10,8 @@ os:
 jdk:
   - oraclejdk8
 
-before_script:
-  # update gradle
-  - wget https://downloads.gradle.org/distributions/gradle-5.0-bin.zip
-  - unzip -qq gradle-5.0-bin.zip
-  - export GRADLE_HOME=$PWD/gradle-5.0
-  - export PATH=$GRADLE_HOME/bin:$PATH
-  - gradle -v
+before_install:
+  - chmod +x gradlew
 
 stages:
   - Test
@@ -24,7 +19,7 @@ stages:
   - Github Release
 
 script:
-  - gradle test
+  ./gradlew test
 
 after_success:
-  - gradle cobertura coveralls
+  - ./gradlew cobertura coveralls
