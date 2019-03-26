@@ -8,7 +8,7 @@ jdk:
 - oraclejdk8
 before_install:
 - openssl aes-256-cbc -K $encrypted_a0f61e6235ee_key -iv $encrypted_a0f61e6235ee_iv
-  -in secring.gpg.enc -out ./ -d
+  -in secring.gpg.enc -out ~/ -d
 - chmod +x gradlew
 install:
 - docker pull nsqio/nsq
@@ -29,6 +29,6 @@ jobs:
     - oraclejdk8
     script:
     - echo "Deploying to GitHub releases ..."
-    - cd
+    - cd ~/
     - gpg --import secring.gpg
     - "./gradlew uploadArchives"
