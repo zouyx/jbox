@@ -18,11 +18,15 @@ stages:
 - Test
 - Build
 - Github Release
-script: "./gradlew test"
 after_success:
 - "./gradlew jacocoTestReport coveralls"
 jobs:
   include:
+  - stage: Test
+    jdk:
+      - oraclejdk8
+    script:
+      - ./gradlew test
   - stage: Github Release
     if: tag =~ ^v
     jdk:
