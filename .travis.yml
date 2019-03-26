@@ -1,30 +1,34 @@
 language: java
 services:
-  - redis-server
-
+- redis-server
 sudo: required
-
 os:
-  - linux
-
+- linux
 jdk:
-  - oraclejdk8
-
+- oraclejdk8
 before_install:
-  - chmod +x gradlew
-
+- openssl aes-256-cbc -K $encrypted_a0f61e6235ee_key -iv $encrypted_a0f61e6235ee_iv
+  -in secring.gpg.enc -out ./ -d
+- chmod +x gradlew
 install:
-  - docker pull nsqio/nsq
-  - docker run -d --name lookupd -p 4160:4160 -p 4161:4161 nsqio/nsq /nsqlookupd
-  - docker run -d --name nsqd -p 4150:4150 -p 4151:4151 nsqio/nsq /nsqd
-
+- docker pull nsqio/nsq
+- docker run -d --name lookupd -p 4160:4160 -p 4161:4161 nsqio/nsq /nsqlookupd
+- docker run -d --name nsqd -p 4150:4150 -p 4151:4151 nsqio/nsq /nsqd
 stages:
-  - Test
-  - Build
-  - Github Release
-
-script:
-  ./gradlew test
-
+- Test
+- Build
+- Github Release
+script: "./gradlew test"
 after_success:
-  - ./gradlew jacocoTestReport coveralls
+- "./gradlew jacocoTestReport coveralls"
+jobs:
+  include:
+  - stage: Github Release
+    if: tag =~ ^v
+    jdk:
+    - oraclejdk8
+    script:
+    - echo "Deploying to GitHub releases ..."
+    - cd
+    - gpg --import secring.gpg
+    - "./gradlew uploadArchives"
