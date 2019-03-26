@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static com.github.tevid.jbox.mq.nsq.CommonCache.CACHE;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:applicationContext.xml"})
 public class NSQTest {
@@ -19,15 +21,17 @@ public class NSQTest {
         Publisher publisher = nsqService.getPublisher();
 
         for(int i=1;i<=20;i++) {
+            String key="Hello nsq"+i;
 
-            byte[] data = ("Hello nsq"+i).getBytes();
+            byte[] data = key.getBytes();
             try {
+                CACHE.put(key,key);
                 publisher.publish("test", data);
             }catch (Exception e){
                 e.printStackTrace();
             }
             System.out.println("publish " + new String(data));
-            Thread.sleep(2000);
         }
+        Thread.sleep(2000);
     }
 }
